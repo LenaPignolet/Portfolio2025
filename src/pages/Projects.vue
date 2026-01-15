@@ -48,7 +48,6 @@ onMounted(async () => {
     const res = await fetch('/api/projects')
     const data = await res.json()
 
-    // transformation propre
     projects.value = data.map(project => {
       const props = project.properties
 
