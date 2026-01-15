@@ -9,6 +9,11 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.16.5"
+    "@astrojs/vue": "^5.1.4",
+    "@notionhq/client": "^5.6.0",
+    "astro": "^5.16.5",
+    "dotenv": "^17.2.3",
+    "sass": "^1.97.2",
+    "vue": "^3.5.26"
   }
 }
