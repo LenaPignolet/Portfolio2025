@@ -1,0 +1,31 @@
+/* Font families */
+$font-primary: 'Inter', sans-serif;
+$font-secondary: 'Sok Brubah', serif;
+
+/* Font weights */
+$font-weight__light: 300;
+$font-weight__regular: 400;
+$font-weight__medium: 500;
+$font-weight__semibold: 600;
+$font-weight__bold: 700;
+
+/* Font sizes */
+$font-xs: 0.75rem;   // 12px
+$font-sm: 0.875rem;  // 14px
+$font-base: 1rem;    // 16px
+$font-md: 1.125rem;  // 18px
+$font-lg: 1.25rem;   // 20px
+$font-xl: 1.5rem;    // 24px
+$font-2xl: 2rem;     // 32px
+$font-3xl: 2.5rem;   // 40px
+$font-4xl: 3rem;     // 48px
+
+/* Line heights */
+$lh-tight: 1.2;
+$lh-normal: 1.5;
+$lh-relaxed: 1.7;
+
+/* Letter spacing */
+$ls-tight: -0.02em;
+$ls-normal: 0;
+$ls-wide: 0.05em;
