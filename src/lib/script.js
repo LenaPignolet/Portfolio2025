@@ -37,7 +37,7 @@ const fluidTarget1 = new THREE.WebGLRenderTarget(
         minFilter: THREE.LinearFilter,
         magFilter: THREE.LinearFilter,
         format: THREE.RGBAFormat,
-        type: THREE.FloatType,
+        type: THREE.HalfFloatType,
     }
 );
 
@@ -48,7 +48,7 @@ const fluidTarget2 = new THREE.WebGLRenderTarget(
         minFilter: THREE.LinearFilter,
         magFilter: THREE.LinearFilter,
         format: THREE.RGBAFormat,
-        type: THREE.FloatType,
+        type: THREE.HalfFloatType,
     }
 );
 
