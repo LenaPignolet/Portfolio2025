@@ -1,13 +1,16 @@
 import * as THREE from "three";
 import { vertexShader, fluidShader, displayShader } from "./shaders.js";
 
+const isMobile = window.innerWidth < 768;
+const isLowEnd = navigator.hardwareConcurrency <= 4;
+
 const config = {
-    brushSize: 25.0,
-    brushStrength: 0.5,
-    distortionAmount: 1.5,
-    fluidDecay: 0.98,
-    trailLength: 0.8,
-    stopDecay: 0.85,
+    brushSize: isMobile ? 35.0 : 25.0,
+    brushStrength: isMobile ? 0.35 : 0.5,
+    distortionAmount: isMobile ? 1.0 : 1.5,
+    fluidDecay: isMobile ? 0.96 : 0.98,
+    trailLength: isMobile ? 0.6 : 0.8,
+    stopDecay: isMobile ? 0.80 : 0.85,
     color1: "#010440",
     color2: "#0540F2",
     color3: "#020F59",
@@ -24,31 +27,62 @@ function hexToRgb(hex) {
 }
 
 const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-const renderer = new THREE.WebGLRenderer({ antialias: true });
 
-const gradientCanvas = document.querySelector('.gradient-canvas');
+const renderer = new THREE.WebGLRenderer({ 
+    antialias: !isMobile,
+    powerPreference: isMobile ? 'low-power' : 'high-performance',
+    alpha: false,
+    stencil: false,
+    depth: false,
+});
+
+const gradientCanvas = document.querySelector('.home__background');
+
+const getResolution = () => {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    
+    if (isMobile) {
+        const divisor = isLowEnd ? 2.5 : 2;
+        return {
+            width: Math.floor(width / divisor),
+            height: Math.floor(height / divisor)
+        };
+    }
+    
+    return { width, height };
+};
+
+const resolution = getResolution();
 renderer.setSize(window.innerWidth, window.innerHeight);
+
+if (isMobile) {
+    renderer.setPixelRatio(1);
+} else {
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+}
+
 gradientCanvas.appendChild(renderer.domElement);
 
 const fluidTarget1 = new THREE.WebGLRenderTarget(
-    window.innerWidth,
-    window.innerHeight,
+    resolution.width,
+    resolution.height,
     {
         minFilter: THREE.LinearFilter,
         magFilter: THREE.LinearFilter,
         format: THREE.RGBAFormat,
-        type: THREE.FloatType,
+        type: isMobile ? THREE.UnsignedByteType : THREE.HalfFloatType,
     }
 );
 
 const fluidTarget2 = new THREE.WebGLRenderTarget(
-    window.innerWidth,
-    window.innerHeight,
+    resolution.width,
+    resolution.height,
     {
         minFilter: THREE.LinearFilter,
         magFilter: THREE.LinearFilter,
         format: THREE.RGBAFormat,
-        type: THREE.FloatType,
+        type: isMobile ? THREE.UnsignedByteType : THREE.HalfFloatType,
     }
 );
 
@@ -60,7 +94,7 @@ const fluidMaterial = new THREE.ShaderMaterial({
     uniforms: {
         iTime: { value: 0 },
         iResolution: {
-            value: new THREE.Vector2(window.innerWidth, window.innerHeight),
+            value: new THREE.Vector2(resolution.width, resolution.height),
         },
         iMouse: { value: new THREE.Vector4(0, 0, 0, 0) },
         iFrame: { value: 0 },
@@ -81,7 +115,7 @@ const displayMaterial = new THREE.ShaderMaterial({
         iResolution: {
             value: new THREE.Vector2(window.innerWidth, window.innerHeight),
         },
-        iFluid : { value: null },
+        iFluid: { value: null },
         uDistortionAmount: { value: config.distortionAmount },
         uColor1: { value: new THREE.Vector3(...hexToRgb(config.color1)) },
         uColor2: { value: new THREE.Vector3(...hexToRgb(config.color2)) },
@@ -98,33 +132,54 @@ const geometry = new THREE.PlaneGeometry(2, 2);
 const fluidPlane = new THREE.Mesh(geometry, fluidMaterial);
 const displayPlane = new THREE.Mesh(geometry, displayMaterial);
 
-let mouseX = 0,
-    mouseY = 0;
-let prevMouseX = 0,
-    prevMouseY = 0;
+let mouseX = 0, mouseY = 0;
+let prevMouseX = 0, prevMouseY = 0;
 let lastMoveTime = 0;
 
-document.addEventListener('mousemove', (e) => {
+const handlePointerMove = (e) => {
     const rect = gradientCanvas.getBoundingClientRect();
     prevMouseX = mouseX;
     prevMouseY = mouseY;
-    mouseX = e.clientX - rect.left;
-    mouseY = rect.height - (e.clientY - rect.top);
+    
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    
+    mouseX = clientX - rect.left;
+    mouseY = rect.height - (clientY - rect.top);
     lastMoveTime = performance.now();
+    
     fluidMaterial.uniforms.iMouse.value.set(
         mouseX,
         mouseY,
         prevMouseX,
         prevMouseY
     );
-});
+};
 
-document.addEventListener('mouseleave', () => {
-    fluidMaterial.uniforms.iMouse.value.set(0, 0, 0, 0);
-});
+if (isMobile) {
+    document.addEventListener('touchmove', handlePointerMove, { passive: true });
+    document.addEventListener('touchend', () => {
+        fluidMaterial.uniforms.iMouse.value.set(0, 0, 0, 0);
+    });
+} else {
+    document.addEventListener('mousemove', handlePointerMove);
+    document.addEventListener('mouseleave', () => {
+        fluidMaterial.uniforms.iMouse.value.set(0, 0, 0, 0);
+    });
+}
 
-function animate() {
+let lastFrameTime = 0;
+const targetFPS = isMobile ? 30 : 60;
+const frameInterval = 1000 / targetFPS;
+
+function animate(currentTime) {
     requestAnimationFrame(animate);
+    
+    if (isMobile) {
+        const elapsed = currentTime - lastFrameTime;
+        if (elapsed < frameInterval) return;
+        lastFrameTime = currentTime - (elapsed % frameInterval);
+    }
 
     const time = performance.now() * 0.001;
     fluidMaterial.uniforms.iTime.value = time;
@@ -134,20 +189,6 @@ function animate() {
     if (performance.now() - lastMoveTime > 100) {
         fluidMaterial.uniforms.iMouse.value.set(0, 0, 0, 0);
     }
-
-    fluidMaterial.uniforms.uBrushSize.value = config.brushSize;
-    fluidMaterial.uniforms.uBrushStrength.value = config.brushStrength;
-    fluidMaterial.uniforms.uFluidDecay.value = config.fluidDecay;
-    fluidMaterial.uniforms.uTrailLength.value = config.trailLength;
-    fluidMaterial.uniforms.uStopDecay.value = config.stopDecay;
-
-    displayMaterial.uniforms.uDistortionAmount.value = config.distortionAmount;
-    displayMaterial.uniforms.uColorIntensity.value = config.colorIntensity;
-    displayMaterial.uniforms.uSoftness.value = config.softness;
-    displayMaterial.uniforms.uColor1.value.set(...hexToRgb(config.color1));
-    displayMaterial.uniforms.uColor2.value.set(...hexToRgb(config.color2));
-    displayMaterial.uniforms.uColor3.value.set(...hexToRgb(config.color3));
-    displayMaterial.uniforms.uColor4.value.set(...hexToRgb(config.color4));
 
     fluidMaterial.uniforms.iPreviousFrame.value = previousFluidTarget.texture;
     renderer.setRenderTarget(currentFluidTarget);
@@ -165,16 +206,15 @@ function animate() {
 }
 
 window.addEventListener('resize', () => {
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+    const newResolution = getResolution();
+    
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    fluidMaterial.uniforms.iResolution.value.set(newResolution.width, newResolution.height);
+    displayMaterial.uniforms.iResolution.value.set(window.innerWidth, window.innerHeight);
 
-    renderer.setSize(width, height);
-    fluidMaterial.uniforms.iResolution.value.set(width, height);
-    displayMaterial.uniforms.iResolution.value.set(width, height);
-
-    fluidTarget1.setSize(width, height);
-    fluidTarget2.setSize(width, height);
+    fluidTarget1.setSize(newResolution.width, newResolution.height);
+    fluidTarget2.setSize(newResolution.width, newResolution.height);
     frameCount = 0;
 });
 
-animate();
+animate(0);

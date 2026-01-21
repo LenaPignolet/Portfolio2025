@@ -132,7 +132,7 @@ export const displayShader = `
 
         uv += fluidVel * (0.5 * uDistortionAmount);
 
-        float d = -iTime * 0.2;
+        float d = -iTime * 0.5;
         float a = 0.0;
         for (float i = 0.0; i < 8.0; ++i) {
             a += cos(i - d - a * uv.x);
