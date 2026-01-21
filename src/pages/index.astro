@@ -1,33 +1,65 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { Github, Gitlab, Linkedin } from '@lucide/astro';
+import Arrow from '../assets/icons/arrow-top-right.svg';
+import Sparkle from '../assets/icons/sparkle.svg';
 ---
 
 <Layout>
     <main class="home">
-        <div class="gradient-canvas"></div>
+        <div class="home__background" aria-hidden="true"></div>
 
-        <div class="home__content">
-            <div>
-                <p>Portfolio 2026</p>
-            </div>
-            
-            <div>
-                <h1>Lena <br /> Pignolet</h1>
-                <p>Développeuse frontend orientée UI/UX</p>
-            </div>
-            
-            <div>
-                <p>BUT MMI 2023 - 2026</p>
+        <section class="home__content">
+            <div class="home__wrapper">
+                <div class="home__subtitle">
+                    <div class="home__meta--wrapper">
+                        <Sparkle class="home__icon home__icon--desktop"
+                         aria-hidden="true" />
+                        <p class="home__meta">Portfolio 2026</p>
+                        <Sparkle class="home__icon home__icon--desktop"
+                        aria-hidden="true" />
+                    </div>
+
+                    <Sparkle class="home__icon home__icon--mobile"
+                     aria-hidden="true" />
+
+                    <div class="home__meta--wrapper">
+                        <Sparkle class="home__icon home__icon--desktop"
+                        aria-hidden="true" />
+                        <p class="home__meta">BUT MMI 2023 / 2026</p>
+                        <Sparkle class="home__icon home__icon--desktop"
+                        aria-hidden="true" />
+                    </div>
+                </div>
+                
+                <div class="home__main">
+                    <h1 class="home__title">
+                        Lena <br /> 
+                        Pignolet
+                    </h1>
+                    <p class="home__description">
+                        Développeuse Frontend Junior
+                    </p>
+                </div>
+
+                <div class="home__socials" aria-label="Réseaux sociaux">
+                    <a href="https://github.com/LenaPignolet" class="socials__link" aria-label="Profil GitHub" target="_blank" rel="noopener">
+                        <Github class="socials__icon" aria-hidden="true" />
+                    </a>
+                    <a href="https://gitlab.com/DnD-Nyx" class="socials__link" aria-label="Profil GitLab" target="_blank" rel="noopener">
+                        <Gitlab class="socials__icon" aria-hidden="true" />
+                    </a>
+                    <a href="https://www.linkedin.com/in/lenapignolet/" class="socials__link" aria-label="Profil LinkedIn" target="_blank" rel="noopener">
+                        <Linkedin class="socials__icon" aria-hidden="true" />
+                    </a>
+                </div>
             </div>
 
-            <div>
-                <a href=""></a>
-                <a href=""></a>
-                <a href=""></a>
-            </div>
-
-            <a href="/app" class="btn"> Accéder au portfolio → </a>
-        </div>
+            <a href="/app" class="home__cta" aria-label="Accéder au portfolio">
+                <span class="sr-only">Accéder au portfolio</span>
+                <Arrow class="home__cta--icon" aria-hidden="true" /> 
+            </a>
+        </section>
     </main>
 </Layout>
 

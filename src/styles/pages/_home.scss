@@ -1,19 +1,178 @@
+// Mobile
+// _____________________________
+
 .home {
     position: relative;
-    width: 100dvw;
+    display: flex;
+    width: 100%;
     height: 100dvh;
     overflow: hidden;
+    color: $color-white;
+    user-select: none;
+
+    &__background {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+    }
 
     &__content {
         position: relative;
-        z-index: 100;
+        flex: 1;
+        margin: 16px;
+    }
+
+    &__wrapper {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+    }
+
+    &__subtitle {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+
+        .home__icon {
+            width: 12px;
+            height: auto;
+
+            &--desktop {
+                display: none;
+            }
+        }
+    }
+
+    &__main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 16px;
+        text-align: center;
+    }
+
+    &__title {
+        letter-spacing: 6px;
+    }
+
+    &__description {
+        font-weight: 300;
+        letter-spacing: 1.5px;
+    }
+
+    &__cta {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        padding: 1.5rem;
+        background-color: transparent;
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        background-image: linear-gradient(120deg, rgba(255, 255, 255, 0.3), rgba(0, 0, 0, 0.2));
+        border-radius: 50px;
+        border: solid 1px rgba(255, 255, 255, 0.3);
+        color: white;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+
+        &--icon {
+            width: 26px;
+            transition: transform 0.2s ease;
+            
+            .home__cta:hover & {
+                transform: rotate(45deg);
+            }
+        }
+    }
+
+    &__socials {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        .socials {
+            &__link {
+                display: flex;
+                padding: 10px;
+                border-radius: 50px;
+            }
+
+            &__icon {
+                width: 24px;
+                height: auto;
+                color: $color-white;
+                stroke-width: 1px;
+            }
+        }
     }
 }
 
-.gradient-canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+// Tablet
+// _____________________________
+
+@media screen and (min-width: $screen-md) {
+    .home {
+        &__content {
+            margin: 40px auto;
+            padding: 0 40px;
+            max-width: $screen-xl;
+        }
+
+        &__subtitle {
+            font-size: 18px;
+
+            .home__icon {
+                width: 16px;
+
+                &--mobile {
+                    display: none;
+                }
+
+                &--desktop {
+                    display: block;
+                }
+            }
+        }
+
+        &__meta--wrapper {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        &__main {
+            gap: 24px;
+        }
+
+        &__title {
+            font-size: 104px;
+            letter-spacing: 8px;
+        }
+
+        &__description {
+            font-size: 24px;
+        }
+
+        &__cta {
+            padding: 1.8rem;
+
+            &--icon {
+                width: 32px;
+            }
+        }
+
+        &__socials {
+            gap: 40px;
+
+            .socials__icon {
+                width: 32px;
+            }
+        }
+    }
 }
