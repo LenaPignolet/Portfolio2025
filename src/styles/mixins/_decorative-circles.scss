@@ -1,0 +1,20 @@
+@mixin decorative-circle($top: null, $right: null, $bottom: null, $left: null) {
+    content: '';
+    position: absolute;
+    @if $top { top: $top; }
+    @if $right { right: $right; }
+    @if $bottom { bottom: $bottom; }
+    @if $left { left: $left; }
+    width: 200px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle at center,
+        rgba(19, 2, 255, 0.1) 0%,
+        rgba(128, 0, 255, 0.1) 50%,
+        rgba(227, 71, 255, 0.1) 100%
+    );
+    filter: blur(50px);
+    pointer-events: none;
+    z-index: 0;
+}

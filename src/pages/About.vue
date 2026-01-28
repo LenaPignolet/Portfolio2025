@@ -1,3 +1,162 @@
+<script setup>
+import { MapPin, Mail, Linkedin } from 'lucide-vue-next';
+import Icon from '../components/Icon.vue'
+</script>
+
 <template>
-  <h1>A propos</h1>
+	<div class="page about">
+		<div class="section header">
+			<h1 class="header__title">Léna Pignolet</h1>
+			<div class="header__location">
+				<MapPin aria-hidden="true" />
+				<p>Paris - Reims - Troyes</p>
+			</div>
+		</div>
+
+		<div class="section intro">
+			<h2 class="intro__subtitle">Hello ! 👋</h2>
+			<p class="intro__text">
+				Développeuse front-end passionnée par le <span>design</span> et l’<span>expérience utilisateur</span> ,
+				je crée des interfaces à la
+				fois <span>esthétiques</span> et <span>fonctionnelles</span>.
+			</p>
+			<p class="intro__text">
+				J’accorde une grande importance aux détails et à la <span>cohérence visuelle</span> de chaque projet.
+			</p>
+			<p class="intro__text">
+				<span>Curieuse</span> et <span>créative</span>, j’aime apprendre en continu pour faire évoluer mes
+				compétences.
+			</p>
+		</div>
+
+		<div class="section experiences">
+			<div class="section__title-container">
+				<Icon name="sparkle" class="icon" aria-hidden="true" />
+				<h3 class="section__title">Expériences</h3>
+				<Icon name="sparkle" class="icon" aria-hidden="true" />
+			</div>
+
+			<div class="timeline">
+				<div class="timeline__item">
+					<div class="timeline__marker">
+						<div class="timeline__icon">
+							<Icon name="sparkle"
+								  class="timeline__icon-svg" />
+						</div>
+						<div class="timeline__line"></div>
+					</div>
+
+					<div class="timeline__content">
+						<h3 class="timeline__title">Développeuse Frontend</h3>
+						<p class="timeline__date">2025 - présent</p>
+						<p class="timeline__place">Agence Dn'D, Paris - Alternance</p>
+						<p class="timeline__description">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ac tortor non nulla blandit
+							blandit.
+						</p>
+					</div>
+				</div>
+
+				<div class="timeline__item">
+					<div class="timeline__marker">
+						<div class="timeline__icon">
+							<Icon name="sparkle"
+								  class="timeline__icon-svg" />
+						</div>
+						<div class="timeline__line"></div>
+					</div>
+
+					<div class="timeline__content">
+						<h3 class="timeline__title">Chargé de Relation Client</h3>
+						<p class="timeline__date">2022 - 2024</p>
+						<p class="timeline__place">BPCE Financement, Reims - Intérim</p>
+						<p class="timeline__description">
+							Appels entrants et sortants, négociation client, et blablabla, hihi
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="section education">
+			<div class="section__title-container">
+				<Icon name="sparkle" class="icon" aria-hidden="true" />
+				<h3 class="section__title">Parcours scolaire</h3>
+				<Icon name="sparkle" class="icon" aria-hidden="true" />
+			</div>
+			
+			<div class="timeline">
+				<div class="timeline__item">
+					<div class="timeline__marker">
+						<div class="timeline__icon dot"></div>
+						<div class="timeline__line"></div>
+					</div>
+
+					<div class="timeline__content">
+						<h3 class="timeline__title">BUT Métiers du Multimédia et de l'Internet</h3>
+						<p class="timeline__date">2023 - 2026</p>
+						<p class="timeline__place">IUT de Troyes, Troyes</p>
+						<p class="timeline__description">Parcours développement web</p>
+					</div>
+				</div>
+
+				<div class="timeline__item">
+					<div class="timeline__marker">
+						<div class="timeline__icon dot"></div>
+						<div class="timeline__line"></div>
+					</div>
+
+					<div class="timeline__content">
+						<h3 class="timeline__title">BTS Analyse Biologie Médicale</h3>
+						<p class="timeline__date">2022 - 2023</p>
+						<p class="timeline__place">Lycée Hugues Libergier, Reims</p>
+						<p class="timeline__description">Réorientation après la 1ère année</p>
+					</div>
+				</div>
+
+				<div class="timeline__item">
+					<div class="timeline__marker">
+						<div class="timeline__icon dot"></div>
+						<div class="timeline__line"></div>
+					</div>
+
+					<div class="timeline__content">
+						<h3 class="timeline__title">
+							Baccalauréat Général Spécialité SVT et Physique-Chimie
+						</h3>
+						<p class="timeline__date">2019 - 2022</p>
+						<p class="timeline__place">Lycée Georges Clémenceau, Reims</p>
+						<p class="timeline__description">Mention bien</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="section contact">
+			<div class="section__title-container">
+				<Icon name="sparkle" class="icon" aria-hidden="true" />
+				<h3 class="section__title">Contact</h3>
+				<Icon name="sparkle" class="icon" aria-hidden="true" />
+			</div>
+
+			<p class="contact__subtitle">Vous souhaitez me contacter ?</p>
+
+			<div class="contact__cta-wrapper">
+				<a href="mailto:ton.email@example.com"
+				   class="contact__cta contact__cta--primary">
+					<Mail aria-hidden="true" />
+					<span>Envoyer un mail</span>
+				</a>
+
+				<a href="https://linkedin.com/in/ton-profil"
+				   target="_blank"
+				   class="contact__cta contact__cta--secondary">
+					<Linkedin aria-hidden="true" />
+					<span>Voir mon profil</span>
+				</a>
+			</div>
+		</div>
+	</div>
 </template>
