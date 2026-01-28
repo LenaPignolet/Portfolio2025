@@ -2,8 +2,6 @@ const apiKey = import.meta.env.VITE_NOTION_API_KEY;
 const databaseId = import.meta.env.VITE_NOTION_DATABASE_ID;
 
 export async function GET() {
-    console.log('🔄 API Route: Récupération des projets depuis Notion...');
-
     const url = `https://api.notion.com/v1/databases/${databaseId}/query`;
 
     try {
@@ -26,7 +24,6 @@ export async function GET() {
 
         if (!response.ok) {
             const error = await response.json();
-            console.error('❌ Erreur Notion API:', error);
             return new Response(JSON.stringify({ error: error.message }), {
                 status: response.status,
                 headers: { 'Content-Type': 'application/json' },
@@ -34,9 +31,6 @@ export async function GET() {
         }
 
         const data = await response.json();
-        console.log(`✅ ${data.results.length} projet(s) récupéré(s)`);
-
-        // Transforme les données
         const projects = data.results.map(transformProject);
 
         return new Response(JSON.stringify(projects), {
@@ -44,7 +38,6 @@ export async function GET() {
             headers: { 'Content-Type': 'application/json' },
         });
     } catch (error) {
-        console.error('❌ Erreur:', error);
         return new Response(JSON.stringify({ error: error.message }), {
             status: 500,
             headers: { 'Content-Type': 'application/json' },
