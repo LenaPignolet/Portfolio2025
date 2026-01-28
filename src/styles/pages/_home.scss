@@ -1,6 +1,5 @@
 // Mobile
 // _____________________________
-
 .home {
     position: relative;
     display: flex;
@@ -24,7 +23,6 @@
     }
 
     &__wrapper {
-        position: relative;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -33,19 +31,38 @@
 
     &__subtitle {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
+        flex-direction: column;
+        gap: 8px;
         text-transform: uppercase;
         letter-spacing: 1.2px;
-
+        font-size: 11px;
+        
         .home__icon {
-            width: 12px;
+            width: 10px;
             height: auto;
-
+            flex-shrink: 0;
+            
             &--desktop {
                 display: none;
             }
+            
+            &--mobile {
+                display: block;
+            }
         }
+    }
+
+    &__meta--item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        justify-content: center;
+    }
+
+    &__meta {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     &__main {
@@ -84,7 +101,7 @@
         &--icon {
             width: 26px;
             transition: transform 0.2s ease;
-            
+
             .home__cta:hover & {
                 transform: rotate(45deg);
             }
@@ -113,9 +130,37 @@
     }
 }
 
+// Petit tablet / Mobile landscape
+// _____________________________
+@media screen and (min-width: $screen-sm) {
+    .home {
+        &__subtitle {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            
+            .home__icon {
+                width: 12px;
+                
+                &--mobile {
+                    display: none;
+                }
+                
+                &--desktop {
+                    display: block;
+                }
+            }
+        }
+
+        &__meta--item {
+            gap: 15px;
+        }
+    }
+}
+
 // Tablet
 // _____________________________
-
 @media screen and (min-width: $screen-md) {
     .home {
         &__content {
@@ -126,23 +171,13 @@
 
         &__subtitle {
             font-size: 18px;
-
+            
             .home__icon {
                 width: 16px;
-
-                &--mobile {
-                    display: none;
-                }
-
-                &--desktop {
-                    display: block;
-                }
             }
         }
 
-        &__meta--wrapper {
-            display: flex;
-            align-items: center;
+        &__meta--item {
             gap: 20px;
         }
 
@@ -160,6 +195,7 @@
         }
 
         &__cta {
+            right: 40px;
             padding: 1.8rem;
 
             &--icon {
