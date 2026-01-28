@@ -1,5 +1,8 @@
 ---
-import App from '../components/App.vue'
+import Layout from './Layout.astro'
+import App from './App.vue'
 ---
 
-<App client:load />
+<Layout>
+  <App client:load />
+</Layout>
