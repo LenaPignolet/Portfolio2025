@@ -1,6 +1,5 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import { preloadProjects } from '../utils/projectsService.js';
 import About from '../pages/About.vue';
 import Skills from '../pages/Skills.vue';
 import Projects from '../pages/Projects.vue';
@@ -12,9 +11,6 @@ const goHome = () => {
     window.location.href = '/';
 };
 
-onMounted(() => {
-  preloadProjects();
-});
 </script>
 
 <template>

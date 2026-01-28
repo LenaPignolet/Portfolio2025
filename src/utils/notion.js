@@ -1,43 +1,16 @@
-export async function getPortfolioItems() {
-  const databaseId = import.meta.env.VITE_NOTION_DATABASE_ID; // Ajoute VITE_ prefix
-  const apiKey = import.meta.env.VITE_NOTION_API_KEY;
+export async function getProjects() {
+    try {
+        const response = await fetch('/api/projects');
 
-  if (!databaseId || !apiKey) {
-    console.error("❌ Variables d'environnement manquantes:", { databaseId: !!databaseId, apiKey: !!apiKey });
-    return [];
-  }
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.error || 'Erreur lors de la récupération');
+        }
 
-  const url = `https://api.notion.com/v1/databases/${databaseId}/query`;
+        const projects = await response.json();
 
-  try {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${apiKey}`,
-        'Notion-Version': '2022-06-28',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        sorts: [
-          {
-            property: "Date",
-            direction: "descending",
-          },
-        ],
-      })
-    });
-
-    if (!response.ok) {
-      const error = await response.json();
-      console.error("❌ Erreur Notion API:", error);
-      throw new Error(error.message || response.statusText);
+        return projects;
+    } catch (error) {
+        throw error;
     }
-
-    const data = await response.json();
-    console.log("✅ Données Notion récupérées:", data.results.length, "projets");
-    return data.results;
-  } catch (error) {
-    console.error("❌ Erreur récupération Notion:", error);
-    return [];
-  }
 }

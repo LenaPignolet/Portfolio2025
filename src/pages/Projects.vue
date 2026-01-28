@@ -31,7 +31,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import { getProjects } from '../utils/projectsService.js';
+import { getProjects } from '../utils/notion.js';  // Import direct depuis notion.js
 
 const projects = ref([]);
 const loading = ref(true);
@@ -53,6 +53,10 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+div {
+  color: white;
+}
+
 .projects-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -82,5 +86,6 @@ onMounted(async () => {
   padding: 4px 10px;
   border-radius: 999px;
   font-size: 12px;
+  color: #333;
 }
 </style>
