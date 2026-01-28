@@ -1,34 +1,26 @@
 <template>
   <div>
     <h1>Mes projets</h1>
-
+    
     <p v-if="loading">Chargement...</p>
-    <p v-if="!loading && projects.length === 0">
-      Aucun projet trouvé.
-    </p>
-
-    <div class="projects-list">
-      <article 
-        v-for="project in projects" 
-        :key="project.id"
-        class="project-card"
-      >
-        <img 
-          v-if="project.imageUrl" 
-          :src="project.imageUrl" 
-          :alt="project.title" 
-        />
-
+    <p v-else-if="error">❌ {{ error }}</p>
+    <p v-else-if="projects.length === 0">Aucun projet trouvé.</p>
+    
+    <div v-else class="projects-list">
+      <article v-for="project in projects" :key="project.id" class="project-card">
+        <div v-if="project.images?.length" class="project-images">
+          <img
+            v-for="(img, index) in project.images"
+            :key="img"
+            :src="img"
+            :alt="`${project.title} – image ${index + 1}`"
+          />
+        </div>
         <h2>{{ project.title }}</h2>
         <small>{{ project.date }}</small>
-
         <p>{{ project.description }}</p>
-
         <div class="tags">
-          <span 
-            v-for="tag in project.tags" 
-            :key="tag"
-          >
+          <span v-for="tag in project.tags" :key="tag">
             {{ tag }}
           </span>
         </div>
@@ -38,38 +30,26 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted } from 'vue';
+import { getProjects } from '../utils/projectsService.js';
 
-const projects = ref([])
-const loading = ref(true)
+const projects = ref([]);
+const loading = ref(true);
+const error = ref(null);
 
 onMounted(async () => {
   try {
-    const res = await fetch('/api/projects')
-    const data = await res.json()
-
-    projects.value = data.map(project => {
-      const props = project.properties
-
-      return {
-        id: project.id,
-        title: props.Nom?.title[0]?.plain_text || 'Sans titre',
-        description: props.Description?.rich_text[0]?.plain_text || '',
-        date: props.Date?.date?.start || '',
-        tags: props.Tag?.multi_select?.map(t => t.name) || [],
-        imageUrl:
-          props.Image?.files[0]?.file?.url ||
-          props.Image?.files[0]?.external?.url ||
-          ''
-      }
-    })
-
-  } catch (error) {
-    console.error(error)
+    projects.value = await getProjects();
+    if (projects.value.length === 0) {
+      error.value = "Aucun projet trouvé. Vérifie ta base Notion.";
+    }
+  } catch (err) {
+    console.error("Erreur:", err);
+    error.value = err.message;
   } finally {
-    loading.value = false
+    loading.value = false;
   }
-})
+});
 </script>
 
 <style scoped>

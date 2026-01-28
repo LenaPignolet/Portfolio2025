@@ -1,6 +1,12 @@
 export async function getPortfolioItems() {
-  const databaseId = import.meta.env.NOTION_DATABASE_ID;
-  const apiKey = import.meta.env.NOTION_API_KEY;
+  const databaseId = import.meta.env.VITE_NOTION_DATABASE_ID; // Ajoute VITE_ prefix
+  const apiKey = import.meta.env.VITE_NOTION_API_KEY;
+
+  if (!databaseId || !apiKey) {
+    console.error("❌ Variables d'environnement manquantes:", { databaseId: !!databaseId, apiKey: !!apiKey });
+    return [];
+  }
+
   const url = `https://api.notion.com/v1/databases/${databaseId}/query`;
 
   try {
@@ -22,15 +28,16 @@ export async function getPortfolioItems() {
     });
 
     if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || response.statusText);
+      const error = await response.json();
+      console.error("❌ Erreur Notion API:", error);
+      throw new Error(error.message || response.statusText);
     }
 
     const data = await response.json();
+    console.log("✅ Données Notion récupérées:", data.results.length, "projets");
     return data.results;
-
   } catch (error) {
-    console.error("Erreur récupération Notion:", error);
+    console.error("❌ Erreur récupération Notion:", error);
     return [];
   }
 }

@@ -1,4 +1,4 @@
-import { getPortfolioItems } from '../../lib/notion'
+import { getPortfolioItems } from './notion'
 
 export async function GET() {
   const projects = await getPortfolioItems()
