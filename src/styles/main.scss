@@ -6,6 +6,12 @@
 @import './variables/_breakpoints.scss';
 
 
+// Mixins
+// _____________________________
+
+@import './mixins/_decorative-circles.scss';
+
+
 // Base
 // _____________________________
 
@@ -14,7 +20,16 @@
 @import './base/_reset.scss';
 @import './base/_typography.scss';
 
-// Base
+
+// Components
 // _____________________________
 
+@import './components/_sidebar.scss';
+
+
+// Pages
+// _____________________________
+
+@import './pages/_about.scss';
+@import './pages/_app.scss';
 @import './pages/_home.scss';

@@ -1,0 +1,52 @@
+.sidebar {
+    position: fixed;
+    inset: auto 16px 10px;
+    z-index: 3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    padding: 8px 10px;
+    max-width: 480px;
+    height: 64px;
+    border-radius: 100px;
+    background-color: $color-white;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+
+    &__item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        height: 100%;
+        border-radius: 50%;
+        aspect-ratio: 1/1;
+        transition: color 0.2s ease-in-out;
+        cursor: pointer;
+
+        &:hover {
+            color: $color-black;
+            background-color: $color-dark-blue--trasparent;
+        }
+
+        &--active {
+            color: $color-white;
+            background-color: $color-dark-blue;
+        }
+    }
+
+    &__profile {
+        height: 100%;
+        object-fit: cover;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+    }
+}
+
+// Mobile
+// _____________________________
+
+@media screen and (min-width: $screen-md) {
+    // navbar à gauche 
+}
