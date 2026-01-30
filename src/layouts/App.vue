@@ -4,7 +4,7 @@ import About from '../pages/About.vue';
 import Skills from '../pages/Skills.vue';
 import Projects from '../pages/Projects.vue';
 import { preloadProjects } from '../utils/notion.js';
-import { House, User, UserCog, Folder, Mail, Linkedin } from 'lucide-vue-next';
+import { House, User, UserCog, Folder } from 'lucide-vue-next';
 
 const page = ref('about');
 
