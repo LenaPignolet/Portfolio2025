@@ -1,46 +1,75 @@
-# Astro Starter Kit: Basics
+# Personal Portfolio
 
-```sh
-npm create astro@latest -- --template basics
-```
+This is my personal portfolio project, built to showcase my work, experiments, and ideas as a front‑end developer. The goal of this project is to be fast, visually engaging, and easy to maintain, while experimenting with modern web technologies.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Tech Stack
 
-## 🚀 Project Structure
+* **Astro** – Static site generator
+* **Vue.js** – UI components and interactivity
+* **SCSS** – Styling
+* **Lucide** – Icon library
+* **Notion API** – Content management
+* **Three.js** – 3D graphics and animations
 
-Inside of your Astro project, you'll see the following folders and files:
+## Project Structure
 
 ```text
 /
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+├── public/          # Static assets
+├── src/
+│   ├── assets/      # Images, styles, and other assets
+│   ├── components/  # Reusable UI components (Astro & Vue)
+│   ├── layouts/     # Page layouts
+│   ├── pages/       # Application pages
+│   ├── styles/      # Global SCSS files
+│   └── utils/       # Helpers and utilities
+├── package.json
+└── astro.config.mjs
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Getting Started
 
-## 🧞 Commands
+Clone the repository and install dependencies:
 
-All commands are run from the root of the project, from a terminal:
+```sh
+npm install
+```
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+Start the development server:
 
-## 👀 Want to learn more?
+```sh
+npm run dev
+```
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+The site will be available at:
+
+```
+http://localhost:4321
+```
+
+## Available Scripts
+
+| Command             | Description                          |
+| ------------------- | ------------------------------------ |
+| `npm install`       | Install project dependencies         |
+| `npm run dev`       | Start local development server       |
+| `npm run build`     | Build the site for production        |
+| `npm run preview`   | Preview the production build locally |
+| `npm run astro ...` | Run Astro CLI commands               |
+
+## Deployment
+
+This project can be deployed on any static hosting platform (Vercel, Netlify, GitHub Pages, etc.). The production build is generated in the `dist/` folder.
+
+## Notes
+
+* This is a personal and evolving project.
+* Some features and visuals may be experimental.
+* Content managed via Notion may require environment variables for the API.
+
+## Resources
+
+* [Astro Documentation](https://docs.astro.build)
+* [Vue.js Documentation](https://vuejs.org/)
+* [Three.js Documentation](https://threejs.org/)
+* [Notion API Documentation](https://developers.notion.com/)
