@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue';
 import About from '../pages/About.vue';
 import Skills from '../pages/Skills.vue';
 import Projects from '../pages/Projects.vue';
+import { preloadProjects } from '../utils/notion.js';
 import { House, User, UserCog, Folder, Mail, Linkedin } from 'lucide-vue-next';
 
 const page = ref('about');
@@ -10,6 +11,10 @@ const page = ref('about');
 const goHome = () => {
     window.location.href = '/';
 };
+
+onMounted(() => {
+    preloadProjects();
+});
 
 </script>
 
