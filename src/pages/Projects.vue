@@ -3,6 +3,8 @@
     import { clearProjectsCache, getProjects } from '../utils/notion.js';
     import Icon from '../components/Icon.vue';
 
+    const emit = defineEmits(['select-project']);
+
     const projects = ref([]);
     const loading = ref(true);
     const error = ref(null);
@@ -30,6 +32,11 @@
             year: 'numeric',
             month: 'long',
         });
+    }
+
+    function selectProject(event, projectId) {
+        event.preventDefault();
+        emit('select-project', projectId);
     }
 
     onMounted(async () => {
@@ -99,7 +106,12 @@
                 </div>
 
                 <div class="project-card__content">
-                    <a href="#" class="project-card__cta">
+                    <a 
+                        href="#" 
+                        class="project-card__cta" 
+                        @click="selectProject($event, project.id)"
+                        :aria-label="`Voir les détails du projet ${project.title}`"
+                    >
                         <Icon name="arrow-top-right" class="icon" aria-hidden="true" />
                     </a>
 

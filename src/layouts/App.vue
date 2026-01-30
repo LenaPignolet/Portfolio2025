@@ -3,19 +3,30 @@ import { ref, onMounted } from 'vue';
 import About from '../pages/About.vue';
 import Skills from '../pages/Skills.vue';
 import Projects from '../pages/Projects.vue';
+import ProjectDetail from '../pages/ProjectDetail.vue';
 import { preloadProjects } from '../utils/notion.js';
 import { House, User, UserCog, Folder } from 'lucide-vue-next';
 
 const page = ref('about');
+const selectedProjectId = ref(null);
 
 const goHome = () => {
     window.location.href = '/';
 };
 
+const goToProject = (projectId) => {
+    selectedProjectId.value = projectId;
+    page.value = 'project-detail';
+};
+
+const backToProjects = () => {
+    selectedProjectId.value = null;
+    page.value = 'projects';
+};
+
 onMounted(() => {
     preloadProjects();
 });
-
 </script>
 
 <template>
@@ -54,9 +65,9 @@ onMounted(() => {
 
                 <button
                     class="sidebar__item"
-                    :class="{ 'sidebar__item--active': page === 'projects' }"
-                    :aria-current="page === 'projects' ? 'page' : undefined"
-                    @click="page = 'projects'"
+                    :class="{ 'sidebar__item--active': page === 'projects' || page === 'project-detail' }"
+                    :aria-current="page === 'projects' || page === 'project-detail' ? 'page' : undefined"
+                    @click="backToProjects"
                 >
                     <span class="sr-only">Projets</span>
                     <Folder class="sidebar__icon" aria-hidden="true" />
@@ -74,7 +85,15 @@ onMounted(() => {
             <Home v-if="page === 'home'" />
             <About v-if="page === 'about'" />
             <Skills v-if="page === 'skills'" />
-            <Projects v-if="page === 'projects'" />
+            <Projects 
+                v-if="page === 'projects'" 
+                @select-project="goToProject"
+            />
+            <ProjectDetail 
+                v-if="page === 'project-detail'"
+                :project-id="selectedProjectId"
+                @back="backToProjects"
+            />
         </main>
     </div>
 </template>
