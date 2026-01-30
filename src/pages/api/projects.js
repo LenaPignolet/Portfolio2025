@@ -62,7 +62,8 @@ function transformProject(project) {
         title: props.Nom?.title?.[0]?.plain_text ?? 'Sans titre',
         description: props.Description?.rich_text?.[0]?.plain_text ?? '',
         date: props.Date?.date?.start ?? '',
-        tags: props.Tag?.multi_select?.map((t) => t.name) ?? [],
+        skills: props.Skills?.multi_select?.map((s) => s.name) ?? [],
+        filters: props.Filters?.multi_select?.map((f) => f.name) ?? [],
         images,
     };
 }
