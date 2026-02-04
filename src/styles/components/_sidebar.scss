@@ -2,9 +2,7 @@
     position: fixed;
     inset: auto 16px 16px;
     z-index: 3;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    @include flex(row, space-between, center);
     margin: 0 auto;
     padding: 8px 10px;
     max-width: 480px;
@@ -15,9 +13,7 @@
     border: 1px solid rgba(0, 0, 0, 0.05);
 
     &__item {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        @include flex(row, center, center);
         padding: 10px;
         height: 100%;
         border-radius: 50%;
