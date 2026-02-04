@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import About from '../pages/About.vue';
 import Skills from '../pages/Skills.vue';
 import Projects from '../pages/Projects.vue';
@@ -23,6 +23,10 @@ const backToProjects = () => {
     selectedProjectId.value = null;
     page.value = 'projects';
 };
+
+watch(page, () => {
+    window.scrollTo(0, 0);
+});
 
 onMounted(() => {
     preloadProjects();
