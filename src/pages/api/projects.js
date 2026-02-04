@@ -49,7 +49,7 @@ function transformProject(project) {
     const props = project.properties ?? {};
 
     const images =
-        props.Image?.files
+        props.Images?.files
             ?.map((file) => {
                 if (file.type === 'file') return file.file.url;
                 if (file.type === 'external') return file.external.url;
@@ -59,11 +59,14 @@ function transformProject(project) {
 
     return {
         id: project.id,
-        title: props.Nom?.title?.[0]?.plain_text ?? 'Sans titre',
-        description: props.Description?.rich_text?.[0]?.plain_text ?? '',
+        title: props.Name?.title?.[0]?.plain_text ?? 'Sans titre',
+        context: props.Context?.rich_text?.[0]?.plain_text ?? '',
+        works: props.Works?.rich_text?.[0]?.plain_text ?? '',
+        description: props.Context?.rich_text?.[0]?.plain_text ?? '',
         date: props.Date?.date?.start ?? '',
         skills: props.Skills?.multi_select?.map((s) => s.name) ?? [],
         filters: props.Filters?.multi_select?.map((f) => f.name) ?? [],
+        url: props.Url?.url ?? '',
         images,
     };
 }

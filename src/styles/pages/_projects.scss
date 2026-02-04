@@ -1,13 +1,11 @@
 .projects {
+    min-height: 100dvh;
+
     .header {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        @include flex(column, flex-start, center);
 
         &__title--wrapper {
-            display: flex;
-            align-items: center;
-            gap: 16px;
+            @include flex(row, flex-start, center, nowrap, 16px);
         }
 
         &__title {
@@ -29,22 +27,19 @@
 
     .filters {
         &__list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            justify-content: flex-start;
+            @include flex(row, flex-start, stretch, wrap, 16px);
             max-width: 520px;
             margin: 0 auto;
         }
 
         &::before {
-            @include decorative-circle($top: -60px, $left: -60px);
+            @include decorative-circle($top: -60px, $right: -60px);
         }
     }
 
     .filter-btn {
         padding: 8px 20px;
-        border-radius: 999px;
+        border-radius: 50px;
         border: 1px solid $color-black;
         background: transparent;
         font-size: 12px;
@@ -79,7 +74,7 @@
     .projects-grid {
         display: grid;
         grid-template-columns: 1fr;
-        gap: 24px;
+        gap: 16px;
     }
 
     .project-card {
@@ -105,18 +100,14 @@
         }
 
         &__content {
+            @include flex(column, flex-start, stretch, nowrap, 12px);
             padding: 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
         }
 
         &__cta {
             position: absolute;
             inset: 0 0 auto auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            @include flex(row, center, center);
             margin: 8px;
             width: 50px;
             aspect-ratio: 1/1;
@@ -135,18 +126,16 @@
         }
 
         &__skills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
+            @include flex(row, flex-start, stretch, wrap, 8px);
 
             span {
                 display: inline-block;
                 padding: 4px 12px;
                 background: linear-gradient(135deg, rgba(19, 2, 255, 0.1) 0%, rgba(128, 0, 255, 0.1) 100%);
-                color: rgb(19, 2, 255);
+                color: $color-blue;
                 font-size: 12px;
                 font-weight: 600;
-                border-radius: 999px;
+                border-radius: 50px;
                 text-transform: uppercase;
             }
         }
@@ -160,7 +149,7 @@
         &__date {
             font-size: 14px;
             font-weight: 300;
-            color: #666;
+            color: $color-grey;
         }
 
         &__description {
@@ -172,8 +161,12 @@
 }
 
 // Tablet
-@media (min-width: 768px) {
+@media (min-width: $screen-sm) {
     .projects {
+        .filter-btn {
+            font-size: 14px;
+        }
+
         .projects-grid {
             grid-template-columns: repeat(2, 1fr);
         }

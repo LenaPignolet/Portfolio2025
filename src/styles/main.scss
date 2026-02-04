@@ -10,6 +10,7 @@
 // _____________________________
 
 @import './mixins/_decorative-circles.scss';
+@import './mixins/_flex.scss';
 
 
 // Base
@@ -34,3 +35,4 @@
 @import './pages/_app.scss';
 @import './pages/_home.scss';
 @import './pages/_projects.scss';
+@import './pages/_project-details.scss';
