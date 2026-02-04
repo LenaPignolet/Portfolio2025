@@ -1,17 +1,14 @@
 .about {
     .header {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        @include flex(column, center, center);
 
         &__title {
             font-size: 34px;
+            text-align: center;
         }
 
         &__location {
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            @include flex(row, flex-start, center, nowrap, 8px);
             font-weight: 300;
 
             svg {
@@ -25,10 +22,7 @@
     }
 
     .intro {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 16px;
+        @include flex(column, flex-start, center, nowrap, 16px);
 
         &__subtitle {
             font-size: 24px;
@@ -54,27 +48,22 @@
 
     .timeline {
         &__item {
-            display: flex;
-            gap: 8px;
+            @include flex(row, flex-start, stretch, nowrap, 8px);
             width: 100%;
         }
 
         &__marker {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            @include flex(column, flex-start, center);
         }
 
         &__icon {
+            @include flex(row, center, center);
             --size: 16px;
             width: var(--size);
             height: var(--size);
             margin: 3px;
             flex-shrink: 0;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
         .dot {
@@ -93,9 +82,7 @@
         }
 
         &__content {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
+            @include flex(column, flex-start, stretch, nowrap, 16px);
             margin-bottom: 2rem;
         }
 
@@ -132,97 +119,82 @@
     }
 
     .contact {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 2rem 0;
-    
-    &__subtitle {
-        font-size: 18px;
-        margin-bottom: 32px;
-        color: #666;
-    }
-    
-    &__cta-wrapper {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        width: 100%;
-        max-width: 400px;
-    }
-    
-    &__cta {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 12px;
-        padding: 16px 32px;
-        border-radius: 12px;
-        font-weight: 600;
-        font-size: 16px;
-        text-decoration: none;
-        transition: all 0.3s ease;
         position: relative;
-        overflow: hidden;
-        
-        svg {
-            transition: transform 0.3s ease;
+        @include flex(column, flex-start, center);
+        text-align: center;
+        padding: 2rem 0;
+    
+        &__subtitle {
+            font-size: 18px;
+            margin-bottom: 32px;
+            color: $color-grey;
         }
         
-        &--primary {
-            background: linear-gradient(135deg, rgba(19, 2, 255, 0.9) 0%, rgba(128, 0, 255, 0.9) 100%);
-            color: white;
-            box-shadow: 0 4px 15px rgba(19, 2, 255, 0.2);
-            
-            &:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 6px 20px rgba(19, 2, 255, 0.3);
-                
-                svg {
-                    transform: translateX(2px);
-                }
-            }
-            
-            &:active {
-                transform: translateY(0);
-            }
+        &__cta-wrapper {
+            @include flex(column, flex-start, stretch, nowrap, 16px);
+            width: 100%;
+            max-width: 400px;
         }
         
-        &--secondary {
-            background: white;
-            color: $color-black;
-            border: 1px solid $color-black;
+        &__cta {
+            @include flex(row, center, center, nowrap, 12px);
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
             
-            &:hover {
-                background: $color-black;
+            svg {
+                transition: transform 0.3s ease;
+            }
+            
+            &--primary {
+                background: linear-gradient(135deg, rgba(19, 2, 255, 0.9) 0%, rgba(128, 0, 255, 0.9) 100%);
                 color: white;
-                transform: translateY(-2px);
-                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+                box-shadow: 0 4px 15px rgba(19, 2, 255, 0.2);
                 
-                svg {
-                    transform: scale(1.1);
+                &:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 6px 20px rgba(19, 2, 255, 0.3);
+                }
+                
+                &:active {
+                    transform: translateY(0);
                 }
             }
             
-            &:active {
-                transform: translateY(0);
+            &--secondary {
+                background: white;
+                color: $color-black;
+                border: 1px solid $color-black;
+                
+                &:hover {
+                    background: $color-black;
+                    color: white;
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+                }
+                
+                &:active {
+                    transform: translateY(0);
+                }
             }
         }
+        
+        &::before {
+            @include decorative-circle($top: -60px, $right: -60px);
+        }
+        
+        &::after {
+            @include decorative-circle($bottom: -60px, $left: -60px);
+        }
     }
-    
-    &::before {
-        @include decorative-circle($top: -60px, $right: -60px);
-    }
-    
-    &::after {
-        @include decorative-circle($bottom: -60px, $left: -60px);
-    }
-}
 }
 
-@media (min-width: 768px) {
+@media (min-width: $screen-md) {
     .contact {
         &__cta-wrapper {
             flex-direction: row;
@@ -238,18 +210,8 @@
 // Tablet
 // ______________________________
 
-@media (min-width: 1024px) {
-    .about {
-        padding: 3rem 2rem;
-
-        .intro {
-            max-width: 800px;
-        }
-
-        .timeline {
-            max-width: 900px;
-        }
-    }
+@media (min-width: $screen-lg) {
+    
 }
 
 // Todo : DESKTOP
