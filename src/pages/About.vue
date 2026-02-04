@@ -97,7 +97,7 @@ import Icon from '../components/Icon.vue'
 						<h3 class="timeline__title">BUT Métiers du Multimédia et de l'Internet</h3>
 						<p class="timeline__date">2023 - 2026</p>
 						<p class="timeline__place">IUT de Troyes, Troyes</p>
-						<p class="timeline__description">Parcours développement web</p>
+						<p class="timeline__description">Parcours développement web et dispositifs interactifs</p>
 					</div>
 				</div>
 
@@ -133,7 +133,6 @@ import Icon from '../components/Icon.vue'
 			</div>
 		</div>
 
-
 		<div class="section contact">
 			<div class="section__title-container">
 				<Icon name="sparkle" class="icon" aria-hidden="true" />
@@ -144,13 +143,13 @@ import Icon from '../components/Icon.vue'
 			<p class="contact__subtitle">Vous souhaitez me contacter ?</p>
 
 			<div class="contact__cta-wrapper">
-				<a href="mailto:ton.email@example.com"
+				<a href="mailto:lena.pignolet.pro@example.com"
 				   class="contact__cta contact__cta--primary">
 					<Mail aria-hidden="true" />
 					<span>Envoyer un mail</span>
 				</a>
 
-				<a href="https://linkedin.com/in/ton-profil"
+				<a href="https://linkedin.com/in/lenapignolet"
 				   target="_blank"
 				   class="contact__cta contact__cta--secondary">
 					<Linkedin aria-hidden="true" />
