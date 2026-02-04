@@ -1,13 +1,15 @@
-// Mobile
-// _____________________________
 .home {
     position: relative;
-    display: flex;
+    @include flex();
     width: 100%;
     height: 100dvh;
     overflow: hidden;
     color: $color-white;
     user-select: none;
+
+    p {
+        color: $color-white;
+    }
 
     &__background {
         position: absolute;
@@ -19,23 +21,19 @@
     &__content {
         position: relative;
         flex: 1;
-        margin: 16px;
+        margin: 32px 24px;
     }
 
     &__wrapper {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+        @include flex(column, space-between);
         height: 100%;
     }
 
     &__subtitle {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
+        @include flex(column, flex-start, stretch, nowrap, 8px);
         text-transform: uppercase;
         letter-spacing: 1.2px;
-        font-size: 11px;
+        font-size: 12px;
         
         .home__icon {
             width: 10px;
@@ -53,10 +51,7 @@
     }
 
     &__meta--item {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        justify-content: center;
+        @include flex(row, center, center, nowrap, 8px);
     }
 
     &__meta {
@@ -66,15 +61,13 @@
     }
 
     &__main {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        gap: 16px;
+        @include flex(column, center, stretch, nowrap, 16px);
         text-align: center;
     }
 
     &__title {
-        letter-spacing: 6px;
+        font-size: clamp(3rem, 12vw, 6rem);
+        letter-spacing: clamp(2px, 1.5vw, 8px);
     }
 
     &__description {
@@ -86,8 +79,7 @@
         position: absolute;
         bottom: 0;
         right: 0;
-        display: flex;
-        justify-content: center;
+        @include flex(row, center);
         padding: 1.5rem;
         background-color: transparent;
         backdrop-filter: blur(15px);
@@ -109,13 +101,11 @@
     }
 
     &__socials {
-        display: flex;
-        align-items: center;
-        gap: 20px;
+        @include flex(row, flex-start, center, nowrap, 20px);
 
         .socials {
             &__link {
-                display: flex;
+                @include flex();
                 padding: 10px;
                 border-radius: 50px;
             }
@@ -130,15 +120,14 @@
     }
 }
 
-// Petit tablet / Mobile landscape
+// Small Tablets
 // _____________________________
+
 @media screen and (min-width: $screen-sm) {
     .home {
         &__subtitle {
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 13px;
+            @include flex(row, space-between, center);
+            font-size: 16px;
             
             .home__icon {
                 width: 12px;
@@ -161,12 +150,13 @@
 
 // Tablet
 // _____________________________
+
 @media screen and (min-width: $screen-md) {
     .home {
         &__content {
             margin: 40px auto;
             padding: 0 40px;
-            max-width: $screen-xl;
+            max-width: $screen-xxl;
         }
 
         &__subtitle {
